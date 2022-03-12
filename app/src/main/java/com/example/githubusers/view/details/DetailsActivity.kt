@@ -20,12 +20,12 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        presenter.onAttach(this)
         setUI()
     }
 
     private fun setUI() {
         val count = intent.getIntExtra(TOTAL_COUNT_EXTRA, 0)
-        presenter.onAttach(this)
         presenter.setCounter(count)
         setCountText(count)
         binding.decrementButton.setOnClickListener { presenter.onDecrement() }

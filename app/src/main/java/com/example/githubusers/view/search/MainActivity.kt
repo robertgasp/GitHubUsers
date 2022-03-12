@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     private val adapter = SearchResultAdapter()
-    private val presenter: PresenterSearchContract = SearchPresenter(this, createRepository())
+    private val presenter: PresenterSearchContract = SearchPresenter(createRepository())
     private var totalCount: Int = 0
 
 
@@ -32,13 +32,17 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        presenter.onAttach(this)
         setUI()
+    }
 
+    override fun onDestroy() {
+        presenter.onDetach(this)
+        super.onDestroy()
     }
 
     private fun setUI() = with(binding) {
         toDetailsActivityButton.setOnClickListener {
-
             startActivity(DetailsActivity.getIntent(this@MainActivity, totalCount))
         }
         setQueryListener()
