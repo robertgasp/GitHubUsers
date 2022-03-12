@@ -1,12 +1,15 @@
 package com.example.githubusers.view.search
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.BinderThread
 import com.example.githubusers.R
+import com.example.githubusers.databinding.ActivityMainBinding
 import com.example.githubusers.model.SearchResult
 import com.example.githubusers.presenter.search.PresenterSearchContract
 import com.example.githubusers.presenter.search.SearchPresenter
@@ -22,26 +25,32 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
     private val presenter: PresenterSearchContract = SearchPresenter(this, createRepository())
     private var totalCount: Int = 0
 
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setUI()
+
     }
 
-    private fun setUI() {
+    private fun setUI() = with(binding) {
         toDetailsActivityButton.setOnClickListener {
-            startActivity(DetailsActivity.getIntent(this, totalCount))
+
+            startActivity(DetailsActivity.getIntent(this@MainActivity, totalCount))
         }
         setQueryListener()
         setRecyclerView()
     }
 
-    private fun setRecyclerView() {
+    private fun setRecyclerView() = with(binding) {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
     }
 
-    private fun setQueryListener() {
+    private fun setQueryListener() = with(binding) {
         searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = searchEditText.text.toString()
@@ -88,7 +97,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
-    override fun displayLoading(show: Boolean) {
+    override fun displayLoading(show: Boolean) = with(binding) {
         if (show) {
             progressBar.visibility = View.VISIBLE
         } else {

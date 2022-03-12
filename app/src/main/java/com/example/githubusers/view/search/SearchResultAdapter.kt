@@ -5,6 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubusers.R
+import com.example.githubusers.databinding.ActivityDetailsBinding
+import com.example.githubusers.databinding.ActivityMainBinding
+import com.example.githubusers.databinding.ListItemBinding
 import com.example.githubusers.model.SearchResult
 
 internal class SearchResultAdapter : RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder>() {
@@ -15,9 +18,9 @@ internal class SearchResultAdapter : RecyclerView.Adapter<SearchResultAdapter.Se
         parent: ViewGroup,
         viewType: Int
     ): SearchResultViewHolder {
-        return SearchResultViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item, null)
-        )
+        val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+
+        return SearchResultViewHolder(binding)
     }
 
     override fun onBindViewHolder(
@@ -36,10 +39,10 @@ internal class SearchResultAdapter : RecyclerView.Adapter<SearchResultAdapter.Se
         notifyDataSetChanged()
     }
 
-    internal class SearchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    internal class SearchResultViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(searchResult: SearchResult) {
-            itemView.repositoryName.text = searchResult.fullName
+            binding.repositoryName.text = searchResult.fullName
         }
     }
 }
