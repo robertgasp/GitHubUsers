@@ -12,7 +12,8 @@ import java.util.*
 
 class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
 
-    private val presenter: PresenterDetailsContract = DetailsPresenter(this)
+//    private val presenter: PresenterDetailsContract = DetailsPresenter(this)
+    private val presenter: PresenterDetailsContract = DetailsPresenter(0)
     private lateinit var binding:ActivityDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,7 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
 
     private fun setUI() {
         val count = intent.getIntExtra(TOTAL_COUNT_EXTRA, 0)
+        presenter.onAttach(this)
         presenter.setCounter(count)
         setCountText(count)
         binding.decrementButton.setOnClickListener { presenter.onDecrement() }
@@ -37,6 +39,11 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
     private fun setCountText(count: Int) {
         binding.totalCountTextView.text =
             String.format(Locale.getDefault(), getString(R.string.results_count), count)
+    }
+
+    override fun onDestroy() {
+        presenter.onDetach(this)
+        super.onDestroy()
     }
 
     companion object {
