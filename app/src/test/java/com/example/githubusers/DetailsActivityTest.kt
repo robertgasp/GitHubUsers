@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.githubusers.presenter.details.DetailsPresenter
 import com.example.githubusers.view.details.DetailsActivity
 import junit.framework.TestCase
 import org.junit.After
@@ -24,11 +25,38 @@ class DetailsActivityTest {
     private lateinit var scenario: ActivityScenario<DetailsActivity>
     private lateinit var context: Context
 
+    private lateinit var detailsPresenter: DetailsPresenter
+    private lateinit var detailsActivity: DetailsActivity
+
     @Before
     fun setup() {
         scenario = ActivityScenario.launch(DetailsActivity::class.java)
         context = ApplicationProvider.getApplicationContext()
+        detailsPresenter = DetailsPresenter(0)
+        detailsActivity = DetailsActivity()
     }
+
+    @Test
+    fun activity_onAttach() {
+        detailsPresenter.onAttach(DetailsActivity())
+        scenario.onActivity {
+            val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
+            TestCase.assertNotNull(totalCountTextView)
+        }
+    }
+
+    @Test
+    fun activity_onDetach() {
+        scenario.onActivity {
+
+            if (it!=null) {
+                detailsPresenter.onDetach(it)
+                scenario.moveToState(Lifecycle.State.DESTROYED)
+            }
+            TestCase.assertEquals(scenario.state, Lifecycle.State.DESTROYED)
+        }
+    }
+
 
     @Test
     fun activity_AssertNotNull() {

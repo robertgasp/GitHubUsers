@@ -3,6 +3,7 @@ package com.example.githubusers.presenter.details
 import android.content.Context
 import com.example.githubusers.view.details.DetailsActivity
 import com.example.githubusers.view.details.ViewDetailsContract
+import com.example.githubusers.view.search.ViewSearchContract
 
 internal class DetailsPresenter internal constructor(
 //    private val viewContract: ViewDetailsContract,
@@ -20,7 +21,6 @@ internal class DetailsPresenter internal constructor(
         thisViewContract = null
     }
 
-
     override fun setCounter(count: Int) {
         if (thisViewContract != null) {
             this.count = count
@@ -36,4 +36,5 @@ internal class DetailsPresenter internal constructor(
         count--
         thisViewContract?.setCount(count)
     }
+
 }
