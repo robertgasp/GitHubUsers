@@ -11,9 +11,12 @@ internal class DetailsPresenter internal constructor(
 ) : PresenterDetailsContract {
 
     private var thisViewContract: ViewDetailsContract? = null
+//    var viewDetailsContract: ViewDetailsContract?=null
+    val viewDetailsContract  get() = thisViewContract
 
     override fun onAttach(viewContract: ViewDetailsContract) {
         this.thisViewContract = viewContract
+
     }
 
     override fun onDetach(viewContract: ViewDetailsContract) {

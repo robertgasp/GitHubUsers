@@ -7,5 +7,4 @@ internal interface PresenterSearchContract : PresenterContract {
     fun onAttach(viewContract: ViewSearchContract)
     fun onDetach(viewContract: ViewSearchContract)
     fun searchGitHub(searchQuery: String)
-
 }

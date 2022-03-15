@@ -28,6 +28,7 @@ class DetailsActivityTest {
     private lateinit var detailsPresenter: DetailsPresenter
     private lateinit var detailsActivity: DetailsActivity
 
+
     @Before
     fun setup() {
         scenario = ActivityScenario.launch(DetailsActivity::class.java)
@@ -42,18 +43,19 @@ class DetailsActivityTest {
         scenario.onActivity {
             val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
             TestCase.assertNotNull(totalCountTextView)
+            TestCase.assertNotNull(detailsPresenter.viewDetailsContract)
         }
     }
+
 
     @Test
     fun activity_onDetach() {
         scenario.onActivity {
-
-            if (it!=null) {
+            detailsPresenter.viewDetailsContract
+            if (it != null) {
                 detailsPresenter.onDetach(it)
-                scenario.moveToState(Lifecycle.State.DESTROYED)
+                TestCase.assertEquals(null, detailsPresenter.viewDetailsContract)
             }
-            TestCase.assertEquals(scenario.state, Lifecycle.State.DESTROYED)
         }
     }
 

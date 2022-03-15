@@ -2,6 +2,7 @@ package com.example.githubusers.presenter.search
 
 import com.example.githubusers.model.SearchResponse
 import com.example.githubusers.repository.GitHubRepository
+import com.example.githubusers.view.ViewContract
 import com.example.githubusers.view.search.ViewSearchContract
 import retrofit2.Response
 
@@ -18,6 +19,7 @@ internal class SearchPresenter internal constructor(
 
     override fun onDetach(viewContract: ViewSearchContract) {
         searchPresenterViewContract = viewContract
+
         searchPresenterViewContract = null
     }
 

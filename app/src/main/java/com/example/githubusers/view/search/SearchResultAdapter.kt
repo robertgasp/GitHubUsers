@@ -19,7 +19,6 @@ internal class SearchResultAdapter : RecyclerView.Adapter<SearchResultAdapter.Se
         viewType: Int
     ): SearchResultViewHolder {
         val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-
         return SearchResultViewHolder(binding)
     }
 
