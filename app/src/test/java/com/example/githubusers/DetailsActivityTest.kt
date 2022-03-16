@@ -26,7 +26,6 @@ class DetailsActivityTest {
     private lateinit var context: Context
 
     private lateinit var detailsPresenter: DetailsPresenter
-    private lateinit var detailsActivity: DetailsActivity
 
 
     @Before
@@ -34,7 +33,6 @@ class DetailsActivityTest {
         scenario = ActivityScenario.launch(DetailsActivity::class.java)
         context = ApplicationProvider.getApplicationContext()
         detailsPresenter = DetailsPresenter(0)
-        detailsActivity = DetailsActivity()
     }
 
     @Test

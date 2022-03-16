@@ -12,6 +12,7 @@ internal class SearchPresenter internal constructor(
 ) : PresenterSearchContract, GitHubRepository.GitHubRepositoryCallback {
 
     private var searchPresenterViewContract: ViewSearchContract? = null
+    val searchPresenterViewContractForTest get() = searchPresenterViewContract
 
     override fun onAttach(viewContract: ViewSearchContract) {
         this.searchPresenterViewContract = viewContract
@@ -19,7 +20,6 @@ internal class SearchPresenter internal constructor(
 
     override fun onDetach(viewContract: ViewSearchContract) {
         searchPresenterViewContract = viewContract
-
         searchPresenterViewContract = null
     }
 
