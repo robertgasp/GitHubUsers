@@ -27,7 +27,7 @@ class SearchPresenterTest {
         scenario.onActivity {
 
         }
-        searchPresenter = SearchPresenter(mainActivity)
+//        searchPresenter = SearchPresenter(mainActivity)
 
     }
 
