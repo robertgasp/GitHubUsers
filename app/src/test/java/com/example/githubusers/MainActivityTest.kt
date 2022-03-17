@@ -51,10 +51,10 @@ class MainActivityTest {
     }
 
     @Test
-    fun progressBar_AreVisible(){
+    fun progressBar_AreInvisible(){
         scenario.onActivity {
             val progressBar = it.findViewById<ProgressBar>(R.id.progressBar)
-            TestCase.assertEquals(true, it.displayLoading(true))
+            TestCase.assertEquals(View.GONE, progressBar.visibility)
         }
     }
 
