@@ -10,6 +10,7 @@ import com.example.githubusers.repository.GitHubRepository
 import com.example.githubusers.view.search.MainActivity
 import com.example.githubusers.view.search.ViewSearchContract
 import junit.framework.TestCase
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.TestCouldNotBeSkippedException
@@ -60,6 +61,11 @@ class SearchPresenterTest {
                 TestCase.assertEquals(null, searchPresenter.searchPresenterViewContractForTest)
             }
         }
+    }
+
+    @After
+    fun close() {
+        scenario.close()
     }
 
 }
