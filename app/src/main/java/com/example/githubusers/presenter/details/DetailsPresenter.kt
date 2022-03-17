@@ -16,7 +16,6 @@ internal class DetailsPresenter internal constructor(
 
     override fun onAttach(viewContract: ViewDetailsContract) {
         this.thisViewContract = viewContract
-
     }
 
     override fun onDetach(viewContract: ViewDetailsContract) {

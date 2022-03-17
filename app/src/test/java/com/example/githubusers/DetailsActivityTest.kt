@@ -37,8 +37,8 @@ class DetailsActivityTest {
 
     @Test
     fun activity_onAttach() {
-        detailsPresenter.onAttach(DetailsActivity())
         scenario.onActivity {
+            detailsPresenter.onAttach(it)
             val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
             TestCase.assertNotNull(totalCountTextView)
             TestCase.assertNotNull(detailsPresenter.viewDetailsContract)
@@ -49,7 +49,6 @@ class DetailsActivityTest {
     @Test
     fun activity_onDetach() {
         scenario.onActivity {
-            detailsPresenter.viewDetailsContract
             if (it != null) {
                 detailsPresenter.onDetach(it)
                 TestCase.assertEquals(null, detailsPresenter.viewDetailsContract)
