@@ -11,6 +11,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.githubusers.view.search.MainActivity
 import junit.framework.TestCase
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -55,5 +56,10 @@ class MainActivityTest {
             val progressBar = it.findViewById<ProgressBar>(R.id.progressBar)
             TestCase.assertEquals(true, it.displayLoading(true))
         }
+    }
+
+    @After
+    fun close() {
+        scenario.close()
     }
 }
