@@ -11,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.githubusers.view.search.MainActivity
+import junit.framework.TestCase
 import org.hamcrest.Matcher
 import org.junit.After
 import org.junit.Before
@@ -28,6 +29,19 @@ class MainActivityEspressoTest {
     }
 
     @Test
+    fun searchEditText_isNotNull() {
+        scenario.onActivity {
+            TestCase.assertNotNull(R.id.searchEditText)
+        }
+    }
+
+    @Test
+    fun searchEditText_isVisible() {
+        Espresso.onView(withId(R.id.searchEditText))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
     fun activitySearch_IsWorking() {
         Espresso.onView(withId(R.id.searchEditText)).perform(ViewActions.click())
         Espresso.onView(withId(R.id.searchEditText))
@@ -42,6 +56,17 @@ class MainActivityEspressoTest {
             Espresso.onView(withId(R.id.totalCountTextView))
                 .check(ViewAssertions.matches(ViewMatchers.withText("Number of results: 2283")))
         }
+    }
+
+
+    @Test
+    fun editText_CheckForCorrectInputText() {
+        Espresso.onView(withId(R.id.searchEditText)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.searchEditText))
+            .perform(ViewActions.replaceText("text to check"), ViewActions.closeSoftKeyboard())
+        Espresso.onView(withId(R.id.searchEditText))
+            .check(ViewAssertions.matches(ViewMatchers.withText("text to check")))
+        Espresso.onView(ViewMatchers.isRoot()).perform(delay())
     }
 
     private fun delay(): ViewAction? {
