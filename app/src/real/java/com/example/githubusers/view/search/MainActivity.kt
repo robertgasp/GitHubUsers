@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         setContentView(binding.root)
         presenter.onAttach(this)
         setUI()
+        Toast.makeText(this,"Real Version",Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
@@ -80,10 +81,6 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
             return GitHubRepository(createRetrofit().create(GitHubApi::class.java))
     }
 
-
-//    private fun createRepository(): GitHubRepository {
-//        return GitHubRepository(createRetrofit().create(GitHubApi::class.java))
-//    }
 
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
