@@ -36,9 +36,22 @@ class MainActivityEspressoTest {
     }
 
     @Test
+    fun toDetailsActivityButton_isNotNull() {
+        scenario.onActivity {
+            TestCase.assertNotNull(R.id.toDetailsActivityButton)
+        }
+    }
+
+    @Test
     fun searchEditText_isVisible() {
         Espresso.onView(withId(R.id.searchEditText))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun checkToDetailsActivityButton() {
+        Espresso.onView(withId(R.id.toDetailsActivityButton))
+            .check(ViewAssertions.matches(ViewMatchers.withText("to details")))
     }
 
     @Test
