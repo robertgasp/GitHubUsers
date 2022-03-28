@@ -1,4 +1,4 @@
-package com.example.githubusers
+package com.example.githubusers.espresso
 
 import android.view.View
 import androidx.test.core.app.ActivityScenario
@@ -10,6 +10,8 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.githubusers.BuildConfig
+import com.example.githubusers.R
 import com.example.githubusers.view.search.MainActivity
 import junit.framework.TestCase
 import org.hamcrest.Matcher
