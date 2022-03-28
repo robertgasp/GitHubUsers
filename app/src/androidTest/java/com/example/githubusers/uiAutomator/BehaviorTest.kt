@@ -1,5 +1,6 @@
 import android.content.Context
 import android.content.Intent
+import android.widget.Button
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -7,10 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.UiObject2
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.*
 import com.example.githubusers.R
 import org.junit.Assert
 import org.junit.Before
@@ -24,7 +22,8 @@ class BehaviorTest {
     //Класс UiDevice предоставляет доступ к вашему устройству.
     //Именно через UiDevice вы можете управлять устройством, открывать приложения
     //и находить нужные элементы на экране
-    private val uiDevice: UiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    private val uiDevice: UiDevice =
+        UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     //Контекст нам понадобится для запуска нужных экранов и получения packageName
     private val context = ApplicationProvider.getApplicationContext<Context>()
@@ -64,9 +63,17 @@ class BehaviorTest {
         val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
         //Устанавливаем значение
         editText.text = "UiAutomator"
+
+        val btnSearch = uiDevice.findObject(By.res(packageName, "btnSearch"))
+        btnSearch.click()
         //Отправляем запрос через Espresso
-        Espresso.onView(ViewMatchers.withId(R.id.searchEditText))
-            .perform(ViewActions.pressImeActionButton())
+//        Espresso.onView(ViewMatchers.withId(R.id.searchEditText))
+//            .perform(ViewActions.pressImeActionButton())
+
+        uiDevice.wait(Until.findObject(By.res(packageName, "recyclerView")), TIMEOUT)
+
+        val btnToDetails = uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        btnToDetails.click()
 
         //Ожидаем конкретного события: появления текстового поля totalCountTextView.
         //Это будет означать, что сервер вернул ответ с какими-то данными, то есть запрос отработал.
@@ -77,7 +84,7 @@ class BehaviorTest {
             )
         //Убеждаемся, что сервер вернул корректный результат. Обратите внимание, что количество
         //результатов может варьироваться во времени, потому что количество репозиториев постоянно меняется.
-        Assert.assertEquals(changedText.text.toString(), "Number of results: 668")
+        Assert.assertEquals(changedText.text.toString(), "Number of results: 701")
     }
 
     //Убеждаемся, что DetailsScreen открывается

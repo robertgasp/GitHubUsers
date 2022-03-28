@@ -1,21 +1,17 @@
 package com.example.githubusers.view.search
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.BinderThread
-import com.example.githubusers.BuildConfig
 import com.example.githubusers.R
 import com.example.githubusers.databinding.ActivityMainBinding
 import com.example.githubusers.model.SearchResult
 import com.example.githubusers.presenter.RepositoryContract
 import com.example.githubusers.presenter.search.PresenterSearchContract
 import com.example.githubusers.presenter.search.SearchPresenter
-import com.example.githubusers.repository.FakeGitHubRepository
 import com.example.githubusers.repository.GitHubApi
 import com.example.githubusers.repository.GitHubRepository
 import com.example.githubusers.view.details.DetailsActivity
@@ -36,7 +32,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         setContentView(binding.root)
         presenter.onAttach(this)
         setUI()
-        Toast.makeText(this,"Real Version",Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Real Version", Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
@@ -58,27 +54,32 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
     }
 
     private fun setQueryListener() = with(binding) {
+        btnSearch.setOnClickListener { startSearching() }
         searchEditText.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val query = searchEditText.text.toString()
-                if (query.isNotBlank()) {
-                    presenter.searchGitHub(query)
-                    return@OnEditorActionListener true
-                } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.enter_search_word),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@OnEditorActionListener false
-                }
+                startSearching()
             }
             false
         })
     }
 
+    private fun startSearching(): Boolean = with(binding) OnEditorActionListener@{
+        val query = searchEditText.text.toString()
+        if (query.isNotBlank()) {
+            presenter.searchGitHub(query)
+            return@OnEditorActionListener true
+        } else {
+            Toast.makeText(
+                this@MainActivity,
+                getString(R.string.enter_search_word),
+                Toast.LENGTH_SHORT
+            ).show()
+            return@OnEditorActionListener false
+        }
+    }
+
     private fun createRepository(): RepositoryContract {
-            return GitHubRepository(createRetrofit().create(GitHubApi::class.java))
+        return GitHubRepository(createRetrofit().create(GitHubApi::class.java))
     }
 
 
