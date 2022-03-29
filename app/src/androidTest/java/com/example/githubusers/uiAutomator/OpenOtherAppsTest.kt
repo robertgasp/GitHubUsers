@@ -1,5 +1,6 @@
 package com.example.githubusers.uiAutomator
 
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
@@ -62,5 +63,15 @@ class OpenOtherAppsTest {
         val settingsValidation =
             uiDevice.findObject(UiSelector().packageName("com.android.settings"))
         Assert.assertTrue(settingsValidation.exists())
+
+
+        val settingsMenuView=UiScrollable(UiSelector().scrollable(false))
+        val googleMenuItem = settingsMenuView
+            .getChildByText(
+                UiSelector()
+                    .className(TextView::class.java.name),
+                    "Google"
+            )
+        googleMenuItem.click()
     }
 }
