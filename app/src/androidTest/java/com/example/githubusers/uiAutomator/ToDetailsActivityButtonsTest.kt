@@ -8,6 +8,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import com.example.githubusers.TIMEOUT
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -59,7 +60,7 @@ class ToDetailsActivityButtonsTest {
         Assert.assertEquals(totalCountTextView.text.toString(), "Number of results: -1")
     }
 
-    companion object {
-        private const val TIMEOUT = 5000L
-    }
+//    companion object {
+//        private const val TIMEOUT = 5000L
+//    }
 }

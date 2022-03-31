@@ -10,6 +10,7 @@ import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
 import com.example.githubusers.R
+import com.example.githubusers.TIMEOUT
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -115,7 +116,7 @@ class BehaviorTest {
         Assert.assertEquals(changedText.text, "Number of results: 0")
     }
 
-    companion object {
-        private const val TIMEOUT = 5000L
-    }
+//    companion object {
+//        private const val TIMEOUT = 5000L
+//    }
 }
